@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Common.DAL
 {
-    interface IUserRepository: IRepository<User>
+    public interface IUserRepository: IRepository<User>
     {
         void DeleteItem(User user);
     }

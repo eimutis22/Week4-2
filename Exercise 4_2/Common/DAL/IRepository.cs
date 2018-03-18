@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.DAL
 {
-    interface IRepository<T> : IDisposable
+    public interface IRepository<T> : IDisposable
     {
         IEnumerable<T> GetAllItems();
         T GetItemById(int id);

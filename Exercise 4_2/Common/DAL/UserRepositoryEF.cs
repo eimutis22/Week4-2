@@ -8,7 +8,7 @@ using CommonContext;
 
 namespace Common.DAL
 {
-    class UserRepositoryEF : IUserRepository
+    public class UserRepositoryEF : IUserRepository
     {
         private CoreContext context;
 
