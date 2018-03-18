@@ -116,7 +116,7 @@ namespace CoreAPI.Controllers
 
         private bool UserExists(int id)
         {
-            return repo.GetItemById(id).ToString() != null; // Not 100%
+            return repo.GetAllItems().Count(e => e.ID == id) > 0;
         }
     }
 }
