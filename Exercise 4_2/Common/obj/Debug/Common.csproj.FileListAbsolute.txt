@@ -8,3 +8,4 @@ C:\Users\Eimutis\Documents\Github\RAD_Week4.2\Week4-2\Exercise 4_2\Common\bin\De
 C:\Users\Eimutis\Documents\Github\RAD_Week4.2\Week4-2\Exercise 4_2\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
 C:\Users\Eimutis\Documents\Github\RAD_Week4.2\Week4-2\Exercise 4_2\Common\obj\Debug\Common.dll
 C:\Users\Eimutis\Documents\Github\RAD_Week4.2\Week4-2\Exercise 4_2\Common\obj\Debug\Common.pdb
+C:\Users\Eimutis\Documents\Github\RAD_Week4.2\Week4-2\Exercise 4_2\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
