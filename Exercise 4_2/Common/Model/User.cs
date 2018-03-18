@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Model
 {
-    class User
+    public class User
     {
         public int ID { get; set; }
 
