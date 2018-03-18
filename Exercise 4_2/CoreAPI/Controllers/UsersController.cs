@@ -10,30 +10,36 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Common.Model;
 using CommonContext;
+using Common.DAL;
 
 namespace CoreAPI.Controllers
 {
     public class UsersController : ApiController
     {
-        private CoreContext db = new CoreContext();
+        //private CoreContext db = new CoreContext();
+        private IUserRepository repo;
+
+        public UsersController()
+        {
+            repo = new UserRepositoryEF(new CoreContext());
+        }
 
         // GET: api/Users
-        public IQueryable<User> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
-            return db.Users;
+            //return db.Users;
+            return repo.GetAllItems();
         }
 
         // GET: api/Users/5
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(int id)
         {
-            User user = db.Users.Find(id);
+            User user = repo.GetItemById(id);
             if (user == null)
-            {
                 return NotFound();
-            }
 
-            return Ok(user);
+            return (IHttpActionResult)repo.GetItemById(id); // Potential Issue with cast.
         }
 
         // PUT: api/Users/5
@@ -41,20 +47,17 @@ namespace CoreAPI.Controllers
         public IHttpActionResult PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             if (id != user.ID)
-            {
                 return BadRequest();
-            }
 
-            db.Entry(user).State = EntityState.Modified;
+            //db.Entry(user).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                //db.SaveChanges();
+                repo.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -80,8 +83,8 @@ namespace CoreAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Users.Add(user);
-            db.SaveChanges();
+            repo.InsertItem(user);
+            repo.Save();
 
             return CreatedAtRoute("DefaultApi", new { id = user.ID }, user);
         }
@@ -90,14 +93,14 @@ namespace CoreAPI.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult DeleteUser(int id)
         {
-            User user = db.Users.Find(id);
+            User user = repo.GetItemById(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            db.Users.Remove(user);
-            db.SaveChanges();
+            repo.DeleteItem(id);
+            repo.Save();
 
             return Ok(user);
         }
@@ -106,14 +109,14 @@ namespace CoreAPI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repo.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool UserExists(int id)
         {
-            return db.Users.Count(e => e.ID == id) > 0;
+            return repo.GetItemById(id).ToString() != null; // Not 100%
         }
     }
 }
